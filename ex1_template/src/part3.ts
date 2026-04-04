@@ -8,6 +8,8 @@ const findOrThrow = <T>(pred: (x: T) => boolean, a: T[]): T => {
     throw "No element found.";
 }
 
+
+//TO DO- logiclogic -- const mySuccess: Result<number> = makeOk(5);
 export const findResult = <T>(pred: (x: T) => boolean, a: T[]): Result<T> => undefined as any;
 
 /* Client code */
@@ -20,6 +22,7 @@ const returnSquaredIfFoundEven_v1 = (a: number[]): number => {
     }
 }
 
+// TO DO-
 export const returnSquaredIfFoundEven_v2 = (a: number[]): Result<number> => undefined as any;
 export const returnSquaredIfFoundEven_v3 = (a: number[]): number => undefined as any;
 

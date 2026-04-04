@@ -48,7 +48,7 @@ export type WordTree = {
 
 export const treeToSentence = (t: WordTree): string => 
    R.pipe(
-    (tree: WordTree) => tree.children,
-    R.reduce((acc: string, cur: WordTree) => acc + " " + treeToSentence(cur), t.root)
-  )(t);
+    (tree: WordTree) => tree.children, //  function to extract the array for next step
+    R.reduce((acc: string, cur: WordTree) => acc + " " + treeToSentence(cur), t.root)  //(childrenArray: WordTree[]) =>   reduce(, ,childrenArray)
+  )(t); // throwing t to the pipe
 ;
