@@ -49,8 +49,8 @@ type Product = {
 // };
 const getDiscountedProductAveragePrice = (inventory: Product[]): number => {
   const filteredProd: product[] = filter((prod) => prod.discounted, inventory);
-  const sum = reduce((acc, cur) => acc + cur, 0, filteredProd);
-  const prodCount = filteredProd.length();
+  const sum = reduce((acc, cur) => acc + cur.price, 0, filteredProd);
+  const prodCount = filteredProd.length;
 
   return prodCount === 0 ? 0 : sum / prodCount;
 };
