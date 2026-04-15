@@ -26,6 +26,11 @@
             (check-equal? (rotate-nth '(hello world) 1) '(world hello))
             (check-equal? (rotate-nth '(x y z) 0) '(x y z))
         )
+            (test-suite "deep-reverse"
+            (check-equal? (deep-reverse '(1 2 3) ) '(3 2 1))
+            (check-equal? (deep-reverse '(a b (c d))) '((d c) b a))
+
+        )
     )
 )
 
