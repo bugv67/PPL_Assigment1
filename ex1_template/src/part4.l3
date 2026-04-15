@@ -1,15 +1,40 @@
+;; signature:
+;; Type
+;; Purpose
+;; Pre-Condition:
+;; test: (last-item '(1 2 3))->'(1 2); (last-item '(1 2 3 '(1 2)))->'(1 2 3)
+
 (define last-item
   (λ (lst)
-    'todo))
+    (if (eq?(cdr lst) '())
+    (car lst)
+    (last-item (cdr lst))
+    )))
 
 (define remove-last-item
   (λ (lst)
-    'todo))
+    (if (eq?(cdr lst) '())
+    '()
+    (cons (car lst) (remove-last-item (cdr lst)))
+    )))
 
 (define rotate-nth
   (λ (lst n)
-   'todo))
+   (if (eq? n 0)
+   lst
+   (rotate-nth 
+     (cons (last-item lst) (remove-last-item lst))
+     (- n 1))
+   )))
 
 (define deep-reverse
   (λ (l)
-    'todo))
+  (if (eq? l '())
+   '()
+   (cons
+   (if (pair? (last-item l))
+      (deep-reverse (last-item l))
+      (last-item l))
+    (deep-reverse (remove-last-item l))
+   )
+   )))
