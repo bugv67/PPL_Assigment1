@@ -1,8 +1,8 @@
-;; signature:
-;; Type
-;; Purpose
-;; Pre-Condition:
-;; test: (last-item '(1 2 3))->'(1 2); (last-item '(1 2 3 '(1 2)))->'(1 2 3)
+;; signature:last-item(lst)
+;; Type: (list(T))-> T
+;; Purpose: finding the last element and returnig it
+;; Pre-Condition: list not emty 
+;; test: (last-item '(1 2 3))-> 3; (last-item '(1 2 3 '(5 6)))->'(5 6)
 
 (define last-item
   (λ (lst)
@@ -11,6 +11,13 @@
     (last-item (cdr lst))
     )))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; signature:remove-last-item(lst)
+;; Type:(list)->list
+;; Purpose: removing the last element
+;; Pre-Condition: list not empty 
+;; test: (last-item '(1 2 3))->'(1 2); (last-item '(1 2 3 '(1 2)))->'(1 2 3)
+
 (define remove-last-item
   (λ (lst)
     (if (eq?(cdr lst) '())
@@ -18,22 +25,40 @@
     (cons (car lst) (remove-last-item (cdr lst)))
     )))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; signature:rotate-nth(lst n)
+;; Type:(list(T)*Number)->list(T)
+;; Purpose: roatinting the last n element to the right in cyclic way 
+;; Pre-Condition: n is non-negative number
+;; test: (rotate-nth '(1 2 3 4 5) 2)->'(4 5 1 2 3); (rotate-nth '(1 2 3 4 '(1 2)) 2)->'( 4 '(1 2) 1 2 3) ;(rotate-nth '()->'())
+
 (define rotate-nth
   (λ (lst n)
+  (if (eq? lst '() ) ; if list is empty no need to rotate
+   lst 
    (if (eq? n 0)
    lst
    (rotate-nth 
      (cons (last-item lst) (remove-last-item lst))
      (- n 1))
-   )))
+   ))
+   ))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; signature:deep-reverse(lst)
+;; Type:(list)->list
+;; Purpose: reversing the list
+;; Pre-Condition: true
+;; test: (last-item '(1 2 3 4 5) 2)->'(5 4 3 2 1); (last-item '(1 2 3 4 '(1 2)) 2)->'('(1 2) 4 3 2 1); (rotate-nth '()->'())
 
 (define deep-reverse
   (λ (l)
   (if (eq? l '())
    '()
-   (cons
-   (if (pair? (last-item l))
-      (deep-reverse (last-item l))
+   (cons   
+   (if (pair? (last-item l)) ; or sub list need to reverseis as well
+      (deep-reverse (last-item l)) ; reverse the '() and the placeing it in the beggining
       (last-item l))
     (deep-reverse (remove-last-item l))
    )
