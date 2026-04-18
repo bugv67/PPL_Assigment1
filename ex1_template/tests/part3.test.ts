@@ -65,3 +65,49 @@ describe("Assignment 1 - Part 3", () => {
         });
     });
 });
+
+describe("Assignment 1 - Part 3 - Additional Edge Cases", () => {
+    describe("findResult - Extra tests", () => {
+        it("returns a Failure explicitly for an empty array", () => {
+            expect(F.findResult(x => x > 5, [])).toSatisfy(R.isFailure);
+            expect(F.findResult(x => x > 5, [])).toEqual(R.makeFailure("No element found."));
+        });
+
+        it("returns the FIRST matching element when there are multiple matches", () => {
+            const numbers = [1, 3, 4, 5, 6, 8];
+            // 4 is the first even number, it should return 4 and not overwrite it with 6 or 8
+            expect(F.findResult(x => x % 2 === 0, numbers)).toEqual(R.makeOk(4));
+        });
+
+        it("works correctly with arrays of complex objects", () => {
+            interface User { id: number; name: string }
+            const users: User[] = [
+                { id: 1, name: "Alice" },
+                { id: 2, name: "Bob" },
+                { id: 3, name: "Charlie" }
+            ];
+            expect(F.findResult(u => u.name.startsWith("B"), users)).toEqual(R.makeOk({ id: 2, name: "Bob" }));
+        });
+    });
+
+    describe("returnSquaredIfFoundEven_v2 - Extra tests", () => {
+        it("handles negative even numbers correctly", () => {
+            // -4 is even, (-4)^2 = 16
+            expect(F.returnSquaredIfFoundEven_v2([1, 3, -4, 5])).toEqual(R.makeOk(16));
+        });
+
+        it("handles zero correctly (0 is even and 0^2 = 0)", () => {
+            expect(F.returnSquaredIfFoundEven_v2([1, 7, 0, 9])).toEqual(R.makeOk(0));
+        });
+    });
+
+    describe("returnSquaredIfFoundEven_v3 - Extra tests", () => {
+        it("handles negative even numbers correctly", () => {
+            expect(F.returnSquaredIfFoundEven_v3([1, 3, -4, 5])).toBe(16);
+        });
+
+        it("handles zero correctly", () => {
+            expect(F.returnSquaredIfFoundEven_v3([1, 7, 0, 9])).toBe(0);
+        });
+    });
+});

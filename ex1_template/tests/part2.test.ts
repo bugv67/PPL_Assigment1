@@ -78,5 +78,79 @@ describe("Assignment 1 Part 2", () => {
             expect(treeToSentence(t5)).toBe("");
         });
     });
+describe("Assignment 1 Part 2 - Additional Edge Cases", () => {
+    describe("countVowels - Extra tests", () => {
+        it("returns 0 for an empty string", () => {
+            expect(countVowels("")).toEqual(0);
+        });
+
+        it("returns 0 for a string with no vowels", () => {
+            expect(countVowels("bcdfg 123 !@#")).toEqual(0);
+        });
+
+        it("counts correctly when string is ONLY vowels", () => {
+            expect(countVowels("aeiouAEIOU")).toEqual(10);
+        });
+
+        it("ignores numbers and special characters completely", () => {
+            expect(countVowels("h3ll0 w0rld!")).toEqual(0); // No vowels here!
+            expect(countVowels("v0w3ls r0ck!")).toEqual(0); 
+        });
+    });
+
+    describe("isPalindrome - Extra tests", () => {
+        it("returns true for a string consisting ONLY of special characters and spaces", () => {
+            // All these characters are filtered out, resulting in an empty array which is a palindrome
+            expect(isPalindrome(" !!! ??? --- ")).toBe(true);
+        });
+
+        it("handles alphanumeric mixtures correctly", () => {
+            expect(isPalindrome("A1b2  2B1a")).toBe(true);
+        });
+
+        it("returns false for almost-palindromes", () => {
+            expect(isPalindrome("racecars")).toBe(false);
+        });
+
+        it("returns false for non-palindromes that contain matching parts", () => {
+            expect(isPalindrome("123ab321")).toBe(false);
+        });
+    });
+
+    describe("treeToSentence - Extra tests", () => {
+        it("Represents a complex tree with multiple branches and depths", () => {
+            const t6: WordTree = {
+                root: "I", 
+                children: [
+                    {
+                        root: "love", 
+                        children: [
+                            {root: "functional", children: []}, 
+                            {root: "programming", children: []}
+                        ]
+                    },
+                    {
+                        root: "very", 
+                        children: [
+                            {root: "much", children: []}
+                        ]
+                    }
+                ]
+            };
+            expect(treeToSentence(t6)).toBe("I love functional programming very much");
+        });
+
+        it("Handles a tree where nodes contain numbers as strings", () => {
+            const t7: WordTree = {
+                root: "1", 
+                children: [
+                    {root: "2", children: []}, 
+                    {root: "3", children: []}
+                ]
+            };
+            expect(treeToSentence(t7)).toBe("1 2 3");
+        });
+    });
+});
 });
 
