@@ -56,10 +56,8 @@
   (λ (l)
   (if (eq? l '())
    '()
-   (cons   
-   (if (pair? (last-item l)) ; or sub list need to reverseis as well
-      (deep-reverse (last-item l))    ; reverse the '() and the placeing it in the beggining
-      (last-item l))
-    (deep-reverse (remove-last-item l))
-   )
+    (cons (if (list? (last-item l))     
+          (deep-reverse (last-item l)) 
+          (last-item l))             
+      (deep-reverse (remove-last-item l)))
    )))
